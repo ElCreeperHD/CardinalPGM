@@ -17,16 +17,16 @@ import org.bukkit.command.CommandSender;
 
 public class SnowflakesCommand {
 
-    @Command(aliases = {"snowflakes"}, desc = "View your own or another player's snowflake count.", usage = "[player]")
+    @Command(aliases = {"monodycoins"}, desc = "View your own or another player's monodycoins count.", usage = "[player]")
     public static void settings(final CommandContext cmd, CommandSender sender) throws CommandException {
         if (cmd.argsLength() == 0) {
-            Bukkit.dispatchCommand(sender, "snowflakes " + sender.getName());
+            Bukkit.dispatchCommand(sender, "monodycoins " + sender.getName());
         } else {
             Bukkit.getScheduler().runTaskAsynchronously(Cardinal.getInstance(), new AsyncCommand(cmd, sender) {
                 @Override
                 public void run() {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(cmd.getString(0));
-                    String snowflakes = Cardinal.getCardinalDatabase().get(player, "snowflakes");
+                    String snowflakes = Cardinal.getCardinalDatabase().get(player, "monodycoins");
                     if (snowflakes.equals("")) snowflakes = "0";
                     if (sender.equals(player)) {
                         sender.sendMessage(new UnlocalizedChatMessage(ChatColor.DARK_PURPLE + "{0} " + ChatColor.GOLD + "{1} {2}", ChatConstant.MISC_YOU_HAVE.asMessage(), new UnlocalizedChatMessage("{0}", snowflakes), snowflakes.equals("1") ? ChatConstant.SNOWFLAKES_SNOWFLAKE.asMessage() : ChatConstant.SNOWFLAKES_SNOWFLAKES.asMessage()).getMessage(ChatUtil.getLocale(sender)));
